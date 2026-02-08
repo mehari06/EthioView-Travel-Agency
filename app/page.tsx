@@ -1,7 +1,9 @@
 import Link from "next/link";
 import Image from "next/image";
 import bg from "@/public/bg.png";
-import Gallery from "./_components/Gallery";
+import dynamic from "next/dynamic";
+
+const Gallery = dynamic(() => import("./_components/Gallery"));
 import {
   CalendarDaysIcon,
   CheckBadgeIcon,
@@ -58,19 +60,19 @@ const featuredDestinations = [
   {
     name: "Simien Mountains",
     region: "Highlands",
-    image: "/ethiocabin/SimienPark.webp",
+    image: "/ethiocabin/simienpark.webp",
     description: "Dramatic ridgelines, rare wildlife, and sunrise treks above the clouds.",
   },
   {
     name: "Lalibela",
     region: "Historic North",
-    image: "/ethiocabin/Aksum.webp",
+    image: "/ethiocabin/aksum.webp",
     description: "Rock-hewn churches, ancient legends, and a deep cultural heartbeat.",
   },
   {
     name: "Omo Valley",
     region: "Southern Plains",
-    image: "/ethiocabin/OmoTribe.jpg",
+    image: "/ethiocabin/omotribe.jpg",
     description: "Vibrant traditions and unforgettable cultural encounters.",
   },
 ];

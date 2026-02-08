@@ -1,20 +1,20 @@
 import Image from "next/image";
 
 const images = [
-    { src: "/ethiocabin/Wenchi.jpg", alt: "Wenchi Crater Lake" },
-    { src: "/ethiocabin/OmoTribe.jpg", alt: "Omo Valley Culture" },
-    { src: "/ethiocabin/Aksum.webp", alt: "Ancient Stele of Aksum" },
-    { src: "/ethiocabin/Gondar.webp", alt: "Fasil Ghebbi Castles" },
+    { src: "/ethiocabin/wenchi.jpg", alt: "Wenchi Crater Lake" },
+    { src: "/ethiocabin/omotribe.jpg", alt: "Omo Valley Culture" },
+    { src: "/ethiocabin/aksum.webp", alt: "Ancient Stele of Aksum" },
+    { src: "/ethiocabin/gondar.webp", alt: "Fasil Ghebbi Castles" },
     { src: "/ethiocabin/tourist.webp", alt: "Happy Travelers" },
-    { src: "/ethiocabin/Jegol.webp", alt: "Walled City of Harar" },
-    { src: "/ethiocabin/AwashPark.webp", alt: "Awash National Park Wildlife" },
+    { src: "/ethiocabin/harar.webp", alt: "Walled City of Harar" },
+    { src: "/ethiocabin/awashpark.webp", alt: "Awash National Park Wildlife" },
     { src: "/ethiocabin/tour.jfif", alt: "Highland Adventures" },
-    { src: "/ethiocabin/haileResort/rs=w_388,h_194,cg_true.webp", alt: "Hilton hotel Luxury Pool" },
-    { src: "/ethiocabin/Geralta.webp", alt: "Geralta Mountains" },
-    { src: "/ethiocabin/AddisAbaba.webp", alt: "Addis Ababa Skyline" },
-    { src: "/ethiocabin/SimienPark.webp", alt: "Simien Peaks" },
+    { src: "/ethiocabin/haileresort/adisabebahilton.webp", alt: "Hilton hotel Luxury Pool" },
+    { src: "/ethiocabin/geralta.webp", alt: "Geralta Mountains" },
+    { src: "/ethiocabin/addisababa.webp", alt: "Addis Ababa Skyline" },
+    { src: "/ethiocabin/simienpark.webp", alt: "Simien Peaks" },
     { src: "/ethiocabin/cabin3.jfif", alt: "Relaxing Lodge Stay" },
-    { src: "/ethiocabin/Bale.webp", alt: "Endemic Wildlife" },
+    { src: "/ethiocabin/bale.webp", alt: "Endemic Wildlife" },
 ];
 
 export default function Gallery() {
