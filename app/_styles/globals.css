@@ -1,0 +1,191 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@import url('https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;600;700&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap');
+
+@layer base {
+  :root {
+    /* Light Theme - Udemy Inspired */
+    --bg-primary: #FFFFFF;
+    --bg-secondary: #F9FAFB;
+    --bg-tertiary: #F3F4F6;
+
+    --text-primary: #1F2937;
+    --text-secondary: #4B5563;
+    --text-tertiary: #6B7280;
+    --text-muted: #9CA3AF;
+
+    --border-light: #E5E7EB;
+    --border-medium: #D1D5DB;
+
+    --brand-primary: #10B981;
+    --brand-secondary: #3B82F6;
+    --brand-accent: #F59E0B;
+
+    /* Legacy dark theme vars */
+    --primary-950: #192019;
+    --primary-100: #e5ede7;
+    --accent-500: #f0c341;
+  }
+
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    background-color: var(--bg-primary);
+    color: var(--text-primary);
+    scrollbar-gutter: stable;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4 {
+    font-family: 'Fraunces', serif;
+    letter-spacing: -0.01em;
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--brand-primary);
+    outline-offset: 3px;
+  }
+}
+
+@layer components {
+
+  /* ===== BUTTON COMPONENTS ===== */
+  .btn-primary {
+    @apply inline-flex items-center justify-center gap-2 rounded-full bg-brand-emerald-600 text-white font-semibold px-6 py-3 min-h-[44px] shadow-card hover:shadow-card-hover hover:bg-brand-emerald-700 transition-all duration-200 focus-visible:ring-2 focus-visible:ring-brand-emerald-500 focus-visible:ring-offset-2;
+  }
+
+  .btn-secondary {
+    @apply inline-flex items-center justify-center gap-2 rounded-full border border-brand-emerald-200 text-brand-emerald-700 bg-white font-semibold px-6 py-3 min-h-[44px] hover:bg-brand-emerald-50 transition-all duration-200 focus-visible:ring-2 focus-visible:ring-brand-emerald-500 focus-visible:ring-offset-2;
+  }
+
+  .btn-outline {
+    @apply inline-flex items-center justify-center gap-2 rounded-full border border-slate-200 text-slate-700 bg-white font-medium px-6 py-3 min-h-[44px] hover:bg-slate-50 transition-all duration-200 focus-visible:ring-2 focus-visible:ring-brand-emerald-500 focus-visible:ring-offset-2;
+  }
+
+  /* ===== CARD COMPONENTS ===== */
+  .card {
+    @apply bg-white rounded-card border border-slate-100 shadow-card hover:shadow-card-hover transition-all duration-300;
+  }
+
+  .card-interactive {
+    @apply card hover:scale-[1.02] hover:-translate-y-1 cursor-pointer;
+  }
+
+  /* ===== FORM COMPONENTS ===== */
+  .input {
+    @apply w-full px-4 py-3 min-h-[44px] border border-slate-200 rounded-xl text-slate-900 placeholder-slate-400 focus:ring-2 focus:ring-brand-emerald-500 focus:border-brand-emerald-500 outline-none transition-all bg-white;
+  }
+
+  .input-label {
+    @apply block text-sm font-medium text-gray-700 mb-2;
+  }
+
+  /* ===== SECTION LAYOUTS ===== */
+  .section {
+    @apply py-16 md:py-20 lg:py-24 px-4 md:px-6 lg:px-8;
+  }
+
+  .section-heading {
+    @apply text-3xl md:text-4xl font-semibold text-slate-900 mb-4;
+  }
+
+  .section-subheading {
+    @apply text-lg text-slate-600 max-w-2xl;
+  }
+
+  .container-main {
+    @apply max-w-7xl mx-auto px-4 md:px-6 lg:px-8;
+  }
+
+  .pill {
+    @apply inline-flex items-center gap-2 rounded-full border border-slate-200 bg-white px-4 py-2 text-sm font-medium text-slate-600 hover:bg-slate-50 transition-all;
+  }
+
+  .tag {
+    @apply inline-flex items-center rounded-full bg-slate-100 px-3 py-1 text-xs font-semibold text-slate-600;
+  }
+
+  /* ===== BADGE COMPONENTS ===== */
+  .badge {
+    @apply inline-flex items-center px-3 py-1 rounded-full text-sm font-medium;
+  }
+
+  .badge-success {
+    @apply badge bg-green-100 text-green-800;
+  }
+
+  .badge-warning {
+    @apply badge bg-amber-100 text-amber-800;
+  }
+
+  .badge-info {
+    @apply badge bg-blue-100 text-blue-800;
+  }
+
+  /* ===== RATING STARS ===== */
+  .rating {
+    @apply flex items-center gap-1 text-brand-amber-500;
+  }
+
+  /* ===== LEGACY SPINNERS ===== */
+  .spinner {
+    margin: 3.2rem auto 1.6rem;
+    width: 60px;
+    aspect-ratio: 1;
+    border-radius: 50%;
+    border: 4px solid theme("colors.gray.200");
+    border-right-color: theme("colors.brand.emerald.600");
+    animation: rotate 1s infinite linear;
+  }
+
+  .spinner-mini {
+    margin: 0;
+    width: 20px;
+    aspect-ratio: 1;
+    border-radius: 50%;
+    border: 2px solid theme("colors.gray.200");
+    border-right-color: theme("colors.brand.emerald.600");
+    animation: rotate 1s infinite linear;
+  }
+
+  @keyframes rotate {
+    to {
+      transform: rotate(1turn);
+    }
+  }
+}
+
+/* For react-day-picker */
+.rdp {
+  --rdp-cell-size: 32px !important;
+  --rdp-accent-color: theme("colors.brand.emerald.600") !important;
+  --rdp-background-color: theme("colors.brand.emerald.100") !important;
+  margin: 0 !important;
+}
+
+/* Smooth scrollbar styling */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: #f1f1f1;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #c1c1c1;
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #a1a1a1;
+}

@@ -1,0 +1,76 @@
+import Link from "next/link";
+import { auth } from "../_lib/auth";
+
+export default async function Navigation() {
+  const session = await auth();
+
+  return (
+    <nav className="z-10">
+      <ul className="flex flex-wrap gap-1 items-center text-sm md:text-base">
+        <li>
+          <Link
+            href="/destinations"
+            className="px-4 py-2 text-slate-600 font-medium hover:text-slate-900 hover:bg-slate-50 rounded-full transition-all focus-visible:ring-2 focus-visible:ring-brand-emerald-500 focus-visible:ring-offset-2"
+          >
+            Destinations
+          </Link>
+        </li>
+        <li>
+          <Link
+            href="/tours"
+            className="px-4 py-2 text-slate-600 font-medium hover:text-slate-900 hover:bg-slate-50 rounded-full transition-all focus-visible:ring-2 focus-visible:ring-brand-emerald-500 focus-visible:ring-offset-2"
+          >
+            Tours
+          </Link>
+        </li>
+        <li>
+          <Link
+            href="/hotels"
+            className="px-4 py-2 text-slate-600 font-medium hover:text-slate-900 hover:bg-slate-50 rounded-full transition-all focus-visible:ring-2 focus-visible:ring-brand-emerald-500 focus-visible:ring-offset-2"
+          >
+            Hotels
+          </Link>
+        </li>
+        <li>
+          <Link
+            href="/cabins"
+            className="px-4 py-2 text-slate-600 font-medium hover:text-slate-900 hover:bg-slate-50 rounded-full transition-all focus-visible:ring-2 focus-visible:ring-brand-emerald-500 focus-visible:ring-offset-2"
+          >
+            Lodges
+          </Link>
+        </li>
+        <li>
+          <Link
+            href="/about"
+            className="px-4 py-2 text-slate-600 font-medium hover:text-slate-900 hover:bg-slate-50 rounded-full transition-all focus-visible:ring-2 focus-visible:ring-brand-emerald-500 focus-visible:ring-offset-2"
+          >
+            About
+          </Link>
+        </li>
+        <li className="ml-3">
+          {session?.user?.image ? (
+            <Link
+              href="/account"
+              className="btn-primary px-4 py-2 text-sm"
+            >
+              <img
+                className="h-7 w-7 rounded-full border-2 border-white/30"
+                src={session.user.image}
+                alt={session.user.name}
+                referrerPolicy="no-referrer"
+              />
+              <span>My Account</span>
+            </Link>
+          ) : (
+            <Link
+              href="/account"
+              className="btn-primary px-5 py-2.5 text-sm"
+            >
+              Sign In
+            </Link>
+          )}
+        </li>
+      </ul>
+    </nav>
+  );
+}

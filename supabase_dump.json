@@ -1,0 +1,142 @@
+{
+  "tours": [
+    {
+      "id": 1,
+      "name": "The Imperial Road",
+      "price": 2800,
+      "duration_days": 12,
+      "difficulty": "Easy",
+      "description": "A majestic trek thru history.",
+      "image": "https://ytreuzebgsogmyuxrzee.supabase.co/storage/v1/object/public/ethiocabin/download%20(2).webp"
+    },
+    {
+      "id": 2,
+      "name": "Danakil Expedition",
+      "price": 1500,
+      "duration_days": 4,
+      "difficulty": "Challenging",
+      "description": "Volcano adventure.",
+      "image": "https://ytreuzebgsogmyuxrzee.supabase.co/storage/v1/object/public/ethiocabin/ertale.webp"
+    },
+    {
+      "id": 3,
+      "name": "Bale Mountains Trek",
+      "price": 1200,
+      "duration_days": 7,
+      "difficulty": "Moderate",
+      "description": "Discover the rare red fox and alpine plateau.",
+      "image": "https://ytreuzebgsogmyuxrzee.supabase.co/storage/v1/object/public/ethiocabin/Bale.webp"
+    },
+    {
+      "id": 4,
+      "name": "Lalibela Pilgrimage",
+      "price": 850,
+      "duration_days": 3,
+      "difficulty": "Easy",
+      "description": "Walk through the holy rock-hewn churches.",
+      "image": "https://ytreuzebgsogmyuxrzee.supabase.co/storage/v1/object/public/ethiocabin/Lalibela.webp"
+    },
+    {
+      "id": 5,
+      "name": "Omo Valley Culture",
+      "price": 3200,
+      "duration_days": 10,
+      "difficulty": "Moderate",
+      "description": "Meet the unique tribes of the south.",
+      "image": "https://ytreuzebgsogmyuxrzee.supabase.co/storage/v1/object/public/ethiocabin/Omo.webp"
+    },
+    {
+      "id": 6,
+      "name": "Blue Nile Falls Trip",
+      "price": 450,
+      "duration_days": 2,
+      "difficulty": "Easy",
+      "description": "Witness the smoke that thunders.",
+      "image": "https://ytreuzebgsogmyuxrzee.supabase.co/storage/v1/object/public/ethiocabin/BlueNile.webp"
+    },
+    {
+      "id": 7,
+      "name": "Harar Walled City",
+      "price": 980,
+      "duration_days": 4,
+      "difficulty": "Easy",
+      "description": "Feed the hyenas in the 4th holiest city of Islam.",
+      "image": "https://ytreuzebgsogmyuxrzee.supabase.co/storage/v1/object/public/ethiocabin/Harar.webp"
+    },
+    {
+      "id": 8,
+      "name": "Tiya Stele Mystery",
+      "price": 200,
+      "duration_days": 1,
+      "difficulty": "Easy",
+      "description": "Explore the UNESCO world heritage burial site.",
+      "image": "https://ytreuzebgsogmyuxrzee.supabase.co/storage/v1/object/public/ethiocabin/Tiya.webp"
+    }
+  ],
+  "destinations": [
+    {
+      "id": 1,
+      "name": "Aksum",
+      "region": "Tigray",
+      "description": "Ancient obelisks.",
+      "image": "https://ytreuzebgsogmyuxrzee.supabase.co/storage/v1/object/public/ethiocabin/Aksum.webp",
+      "highlights": [
+        "Ark of Covenant"
+      ]
+    },
+    {
+      "id": 2,
+      "name": "Addis Ababa",
+      "region": "Central",
+      "description": "Diplomatic capital.",
+      "image": "https://ytreuzebgsogmyuxrzee.supabase.co/storage/v1/object/public/ethiocabin/AddisAbaba.webp",
+      "highlights": [
+        "National Museum"
+      ]
+    },
+    {
+      "id": 3,
+      "name": "Lalibela",
+      "region": "Amhara",
+      "description": "The Jerusalem of Ethiopia.",
+      "image": "https://ytreuzebgsogmyuxrzee.supabase.co/storage/v1/object/public/ethiocabin/Lalibela.webp",
+      "highlights": [
+        "Rock-hewn Churches",
+        "Beta Giyorgis"
+      ]
+    },
+    {
+      "id": 4,
+      "name": "Omo Valley",
+      "region": "SNNPR",
+      "description": "A cultural melting pot of tribes.",
+      "image": "https://ytreuzebgsogmyuxrzee.supabase.co/storage/v1/object/public/ethiocabin/Omo.webp",
+      "highlights": [
+        "Mursi Tribe",
+        "Bull Jumping"
+      ]
+    },
+    {
+      "id": 5,
+      "name": "Harar",
+      "region": "Harari",
+      "description": "The city of peacfull coexistence.",
+      "image": "https://ytreuzebgsogmyuxrzee.supabase.co/storage/v1/object/public/ethiocabin/Harar.webp",
+      "highlights": [
+        "Hyena Feeding",
+        "Ancient Walls"
+      ]
+    },
+    {
+      "id": 6,
+      "name": "Bahir Dar",
+      "region": "Amhara",
+      "description": "Gateway to the Blue Nile.",
+      "image": "https://ytreuzebgsogmyuxrzee.supabase.co/storage/v1/object/public/ethiocabin/BahirDar.webp",
+      "highlights": [
+        "Lake Tana",
+        "Monasteries"
+      ]
+    }
+  ]
+}
