@@ -66,7 +66,7 @@ function TourCard({ tour, session }: { tour: Tour; session: Session | null }) {
   // This fixes the issue where remote buckets return 404s.
   // We assume the filename in the DB matches the filename in public/ethiocabin
   const displayImage = image
-    ? `/ethiocabin/${image.split("/").pop()}`.replace(/%20/g, " ")
+    ? `/images/${image.split("/").pop()}`.replace(/%20/g, " ")
     : image;
 
   return (

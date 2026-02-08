@@ -1,20 +1,20 @@
 import Image from "next/image";
 
 const images = [
-    { src: "/ethiocabin/wenchi.jpg", alt: "Wenchi Crater Lake" },
-    { src: "/ethiocabin/omotribe.jpg", alt: "Omo Valley Culture" },
-    { src: "/ethiocabin/aksum.webp", alt: "Ancient Stele of Aksum" },
-    { src: "/ethiocabin/gondar.webp", alt: "Fasil Ghebbi Castles" },
-    { src: "/ethiocabin/tourist.webp", alt: "Happy Travelers" },
-    { src: "/ethiocabin/harar.webp", alt: "Walled City of Harar" },
-    { src: "/ethiocabin/awashpark.webp", alt: "Awash National Park Wildlife" },
-    { src: "/ethiocabin/tour.jfif", alt: "Highland Adventures" },
-    { src: "/ethiocabin/haileresort/adisabebahilton.webp", alt: "Hilton hotel Luxury Pool" },
-    { src: "/ethiocabin/geralta.webp", alt: "Geralta Mountains" },
-    { src: "/ethiocabin/addisababa.webp", alt: "Addis Ababa Skyline" },
-    { src: "/ethiocabin/simienpark.webp", alt: "Simien Peaks" },
-    { src: "/ethiocabin/cabin3.jfif", alt: "Relaxing Lodge Stay" },
-    { src: "/ethiocabin/bale.webp", alt: "Endemic Wildlife" },
+    { src: "/images/wenchi.jpg", alt: "Wenchi Crater Lake" },
+    { src: "/images/omotribe.jpg", alt: "Omo Valley Culture" },
+    { src: "/images/aksum.webp", alt: "Ancient Stele of Aksum" },
+    { src: "/images/gondar.webp", alt: "Fasil Ghebbi Castles" },
+    { src: "/images/tourist.webp", alt: "Happy Travelers" },
+    { src: "/images/harar.webp", alt: "Walled City of Harar" },
+    { src: "/images/awashpark.webp", alt: "Awash National Park Wildlife" },
+    { src: "/images/tour.jfif", alt: "Highland Adventures" },
+    { src: "/images/haileresort/adisabebahilton.webp", alt: "Hilton hotel Luxury Pool" },
+    { src: "/images/geralta.webp", alt: "Geralta Mountains" },
+    { src: "/images/addisababa.webp", alt: "Addis Ababa Skyline" },
+    { src: "/images/simienpark.webp", alt: "Simien Peaks" },
+    { src: "/images/cabin3.jfif", alt: "Relaxing Lodge Stay" },
+    { src: "/images/bale.webp", alt: "Endemic Wildlife" },
 ];
 
 export default function Gallery() {

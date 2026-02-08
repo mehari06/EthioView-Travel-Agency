@@ -15,9 +15,9 @@ export default async function Page() {
   const images = [
     ...Array.from(
       { length: 24 },
-      (_, i) => `/ethiocabin/haileResort/haileResortHawassa (${i + 1}).jpg`
+      (_, i) => `/images/haileresort/haileResortHawassa (${i + 1}).jpg`.toLowerCase()
     ),
-    "/ethiocabin/haileResort/adisabebahilton.webp",
+    "/images/haileresort/adisabebahilton.webp",
   ];
 
   return (

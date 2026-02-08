@@ -60,19 +60,19 @@ const featuredDestinations = [
   {
     name: "Simien Mountains",
     region: "Highlands",
-    image: "/ethiocabin/simienpark.webp",
+    image: "/images/simienpark.webp",
     description: "Dramatic ridgelines, rare wildlife, and sunrise treks above the clouds.",
   },
   {
     name: "Lalibela",
     region: "Historic North",
-    image: "/ethiocabin/aksum.webp",
+    image: "/images/aksum.webp",
     description: "Rock-hewn churches, ancient legends, and a deep cultural heartbeat.",
   },
   {
     name: "Omo Valley",
     region: "Southern Plains",
-    image: "/ethiocabin/omotribe.jpg",
+    image: "/images/omotribe.jpg",
     description: "Vibrant traditions and unforgettable cultural encounters.",
   },
 ];
