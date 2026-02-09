@@ -34,7 +34,6 @@ function ReservationForm({ cabin, user }: ReservationFormProps) {
   const createBookingWithData = createBooking.bind(null, bookingData);
 
   return (
-  return (
     <div className="flex flex-col gap-6">
       <div className="flex items-center justify-between gap-4 text-sm text-slate-600 bg-slate-50 p-4 rounded-lg">
         <p>Logged in as</p>
