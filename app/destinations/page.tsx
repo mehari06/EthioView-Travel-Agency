@@ -52,12 +52,22 @@ async function DestinationList() {
 }
 
 function DestinationCard({ destination }: { destination: any }) {
-  const { name, region, description, image, highlights } = destination;
+  const { id, name, region, description, image, highlights } = destination;
 
-  // Ensure image path is processed correctly for local serving
-  const displayImage = image?.startsWith("http")
+  // Robust image mapping to ensure correct paths
+  const destinationImages: { [key: number]: string } = {
+    1: "/images/aksum.jpg",
+    2: "/images/addisabeba.jpg",
+    3: "/images/lalibela.jpg",
+    4: "/images/omoperson.jpg",
+    5: "/images/harrarwall.jpg",
+    6: "/images/bahirdarcity.jpg",
+    11: "/images/hawassa.png",
+  };
+
+  const displayImage = destinationImages[id] || (image?.startsWith("http")
     ? `/images/${image.split("/").pop()}`.replace(/%20/g, " ")
-    : image;
+    : image);
 
   return (
     <div className="card overflow-hidden flex flex-col">
