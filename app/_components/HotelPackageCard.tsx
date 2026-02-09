@@ -20,7 +20,7 @@ export default function HotelPackageCard({ packageData }: HotelPackageCardProps)
         <div className="card overflow-hidden grid grid-cols-1 lg:grid-cols-[2fr_3fr]">
             <div className="relative h-64 lg:h-auto">
                 <Image
-                    src={image}
+                    src={displayImage || "/images/haile-resort/haile-2.jpg"}
                     fill
                     alt={name}
                     className="object-cover"

@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import { differenceInDays } from "date-fns";
 import { useReservation } from "./ReservationContext";
 import { createBooking } from "../_lib/actions";
@@ -38,13 +39,16 @@ function ReservationForm({ cabin, user }: ReservationFormProps) {
         <p>Logged in as</p>
 
         <div className="flex gap-3 items-center">
-          <img
-            // Important to display google profile images
-            referrerPolicy="no-referrer"
-            className="h-9 w-9 rounded-full"
-            src={user.image!}
-            alt={user.name!}
-          />
+          <div className="relative h-9 w-9">
+            <Image
+              // Important to display google profile images
+              referrerPolicy="no-referrer"
+              className="rounded-full object-cover"
+              src={user.image!}
+              fill
+              alt={user.name!}
+            />
+          </div>
           <p className="font-semibold text-slate-900">{user.name}</p>
         </div>
       </div>

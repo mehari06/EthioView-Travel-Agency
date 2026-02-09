@@ -1,3 +1,4 @@
+import Image from "next/image";
 import Link from "next/link";
 import { auth } from "../_lib/auth";
 
@@ -51,14 +52,17 @@ export default async function Navigation() {
           {session?.user?.image ? (
             <Link
               href="/account"
-              className="btn-primary px-4 py-2 text-sm"
+              className="btn-primary px-4 py-2 text-sm flex items-center gap-2"
             >
-              <img
-                className="h-7 w-7 rounded-full border-2 border-white/30"
-                src={session.user.image}
-                alt={session.user.name}
-                referrerPolicy="no-referrer"
-              />
+              <div className="relative h-7 w-7">
+                <Image
+                  className="rounded-full border-2 border-white/30 object-cover"
+                  src={session.user.image}
+                  fill
+                  alt={session.user.name || "User profile"}
+                  referrerPolicy="no-referrer"
+                />
+              </div>
               <span>My Account</span>
             </Link>
           ) : (
