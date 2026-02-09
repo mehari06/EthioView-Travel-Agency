@@ -2,19 +2,19 @@ import Image from "next/image";
 
 const images = [
     { src: "/images/wenchi.jpg", alt: "Wenchi Crater Lake" },
-    { src: "/images/omotribe.jpg", alt: "Omo Valley Culture" },
-    { src: "/images/aksum.webp", alt: "Ancient Stele of Aksum" },
-    { src: "/images/gondar.webp", alt: "Fasil Ghebbi Castles" },
-    { src: "/images/tourist.webp", alt: "Happy Travelers" },
-    { src: "/images/harar.webp", alt: "Walled City of Harar" },
-    { src: "/images/awashpark.webp", alt: "Awash National Park Wildlife" },
-    { src: "/images/tour.jfif", alt: "Highland Adventures" },
-    { src: "/images/haileresort/adisabebahilton.webp", alt: "Hilton hotel Luxury Pool" },
-    { src: "/images/geralta.webp", alt: "Geralta Mountains" },
-    { src: "/images/addisababa.webp", alt: "Addis Ababa Skyline" },
-    { src: "/images/simienpark.webp", alt: "Simien Peaks" },
-    { src: "/images/cabin3.jfif", alt: "Relaxing Lodge Stay" },
-    { src: "/images/bale.webp", alt: "Endemic Wildlife" },
+    { src: "/images/feedingofhyenainharrar.jpg", alt: "Hyena Feeding in Harar" },
+    { src: "/images/fasiledes.jpg", alt: "Fasiledes Castle in Gondar" },
+    { src: "/images/aksumtsionchurch.jpg", alt: "St. Mary of Zion, Aksum" },
+    { src: "/images/geladababbon.jpg", alt: "Gelada Baboon in Simien" },
+    { src: "/images/aksum.jpg", alt: "Ancient Stele of Aksum" },
+    { src: "/images/sofomercave.jpg", alt: "Sof Omar Cave" },
+    { src: "/images/laketana.jpg", alt: "Lake Tana Monasteries" },
+    { src: "/images/ethiotraditionaldish.jpg", alt: "Ethiopian Traditional Dish" },
+    { src: "/images/waliaibex.jpg", alt: "Walia Ibex in Simien" },
+    { src: "/images/lalibela.jpg", alt: "Rock-hewn Church, Lalibela" },
+    { src: "/images/dankil_depression.jpg", alt: "Danakil Depression" },
+    { src: "/images/bahirdarlaketana.jpg", alt: "Bahir Dar Lake" },
+    { src: "/images/aregashlodge.jpg", alt: "Aregash Lodge" },
 ];
 
 export default function Gallery() {

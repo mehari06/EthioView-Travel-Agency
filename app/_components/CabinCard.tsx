@@ -5,11 +5,24 @@ import { UsersIcon, WifiIcon, SunIcon, FireIcon } from "@heroicons/react/24/outl
 function CabinCard({ cabin }) {
   const { id, name, maxCapacity, regularPrice, discount, image } = cabin;
 
+  // Robust image mapping to bypass DB update restrictions for the fresh assets
+  const cabinImages: { [key: number]: string } = {
+    1: "/images/aregashlodge.jpg",
+    2: "/images/cabin2.jpg",
+    3: "/images/cabin3.jpg",
+    4: "/images/cabin4.jpg",
+    5: "/images/cabin5.jpg",
+  };
+
+  const displayImage = cabinImages[id] || (image?.startsWith("http")
+    ? `/images/${image.split("/").pop()}`.replace(/%20/g, " ")
+    : image);
+
   return (
     <div className="card overflow-hidden flex flex-col md:flex-row">
       <div className="flex-1 relative min-h-[260px] overflow-hidden group">
         <Image
-          src={image}
+          src={displayImage || "/images/lodge.jpg"}
           fill
           alt={`Lodge ${name}`}
           className="object-cover group-hover:scale-105 transition-transform duration-700"

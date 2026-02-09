@@ -13,11 +13,28 @@ export const metadata = {
 export default async function Page() {
   const session = await auth();
   const images = [
-    ...Array.from(
-      { length: 24 },
-      (_, i) => `/images/haileresort/haileResortHawassa (${i + 1}).jpg`.toLowerCase()
-    ),
-    "/images/haileresort/adisabebahilton.webp",
+    "/images/haile-resort/haile-2.jpg",
+    "/images/haile-resort/haile-3.jpg",
+    "/images/haile-resort/haile-5.jpg",
+    "/images/haile-resort/haile-6.jpg",
+    "/images/haile-resort/haile-7.jpg",
+    "/images/haile-resort/haile-9.jpg",
+    "/images/haile-resort/haile-10.jpg",
+    "/images/haile-resort/haile-11.jpg",
+    "/images/haile-resort/haile-12.jpg",
+    "/images/haile-resort/haile-13.jpg",
+    "/images/haile-resort/haile-14.jpg",
+    "/images/haile-resort/haile-15.jpg",
+    "/images/haile-resort/haile-16.jpg",
+    "/images/haile-resort/haile-17.jpg",
+    "/images/haile-resort/haile-18.jpg",
+    "/images/haile-resort/haile-19.jpg",
+    "/images/haile-resort/haile-20.jpg",
+    "/images/haile-resort/haile-21.jpg",
+    "/images/haile-resort/haile-23.jpg",
+    "/images/haile-resort/haile-24.jpg",
+    "/images/haile-resort/haile-25.jpg",
+    "/images/sheratonhotel.jpg",
   ];
 
   return (

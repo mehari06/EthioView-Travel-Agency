@@ -60,21 +60,28 @@ const featuredDestinations = [
   {
     name: "Simien Mountains",
     region: "Highlands",
-    image: "/images/simienpark.webp",
+    image: "/images/geladababbon.jpg",
     description: "Dramatic ridgelines, rare wildlife, and sunrise treks above the clouds.",
   },
   {
     name: "Lalibela",
     region: "Historic North",
-    image: "/images/aksum.webp",
+    image: "/images/lalibela.jpg",
     description: "Rock-hewn churches, ancient legends, and a deep cultural heartbeat.",
   },
   {
-    name: "Omo Valley",
-    region: "Southern Plains",
-    image: "/images/omotribe.jpg",
-    description: "Vibrant traditions and unforgettable cultural encounters.",
+    name: "Danakil Depression",
+    region: "Afar Region",
+    image: "/images/dankil_depression.jpg",
+    description: "One of the hottest and most colorful places on earth, a true geological wonder.",
   },
+];
+
+const cuisineImages = [
+  { src: "/images/ethiotraditionaldish.jpg", alt: "Injera and Wot" },
+  { src: "/images/ethiotraditionaldish2.jpg", alt: "Ethiopian Coffee" },
+  { src: "/images/ethiotraditionaldish3.jpg", alt: "Spiced Flavors" },
+  { src: "/images/ethiotraditionaldish4.jpg", alt: "Traditional Feast" },
 ];
 
 const highlights = [

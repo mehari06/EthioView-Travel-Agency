@@ -62,12 +62,22 @@ async function TourList({ session }: { session: Session | null }) {
 function TourCard({ tour, session }: { tour: Tour; session: Session | null }) {
   const { name, duration_days, price, difficulty, description, image } = tour;
 
-  // FORCE LOCAL IMAGE LOAD: Override Supabase URL to use local public folder
-  // This fixes the issue where remote buckets return 404s.
-  // We assume the filename in the DB matches the filename in public/ethiocabin
-  const displayImage = image
+  // Robust image mapping to bypass DB update restrictions for the fresh assets
+  const tourImages: { [key: number]: string } = {
+    1: "/images/wenchi.jpg",
+    2: "/images/dankil_depression.jpg",
+    3: "/images/geladababbon.jpg",
+    4: "/images/lalibela.jpg",
+    5: "/images/omoperson.jpg",
+    6: "/images/tisabay.jpg",
+    7: "/images/feedingofhyenainharrar.jpg",
+    8: "/images/hawassasaintgebrielmonstaery.jpg",
+    13: "/images/hawassalake.jpg",
+  };
+
+  const displayImage = tourImages[tour.id] || (image
     ? `/images/${image.split("/").pop()}`.replace(/%20/g, " ")
-    : image;
+    : image);
 
   return (
     <div className="card overflow-hidden grid grid-cols-1 lg:grid-cols-[1.1fr_1fr]">

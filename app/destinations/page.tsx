@@ -54,10 +54,20 @@ async function DestinationList() {
 function DestinationCard({ destination }: { destination: any }) {
   const { name, region, description, image, highlights } = destination;
 
+  // Ensure image path is processed correctly for local serving
+  const displayImage = image?.startsWith("http")
+    ? `/images/${image.split("/").pop()}`.replace(/%20/g, " ")
+    : image;
+
   return (
     <div className="card overflow-hidden flex flex-col">
       <div className="relative h-56">
-        <Image src={image} fill alt={name} className="object-cover" />
+        <Image
+          src={displayImage || "/images/aksum.jpg"}
+          fill
+          alt={name}
+          className="object-cover"
+        />
       </div>
 
       <div className="p-6 flex flex-col flex-grow">
