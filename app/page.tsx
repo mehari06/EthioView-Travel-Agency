@@ -1,9 +1,7 @@
 import Link from "next/link";
 import Image from "next/image";
 import bg from "@/public/bg.png";
-import dynamic from "next/dynamic";
-
-const Gallery = dynamic(() => import("./_components/Gallery").then(mod => ({ default: mod.default })));
+import Gallery from "./_components/Gallery";
 import {
   CalendarDaysIcon,
   CheckBadgeIcon,

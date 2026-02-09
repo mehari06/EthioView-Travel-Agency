@@ -1,8 +1,6 @@
 import "./_styles/globals.css";
 import Header from "./_components/Header";
-import dynamic from "next/dynamic";
-
-const Footer = dynamic(() => import("./_components/Footer").then(mod => ({ default: mod.default })));
+import Footer from "./_components/Footer";
 import { ReservationProvider } from "./_components/ReservationContext";
 
 export const metadata = {
