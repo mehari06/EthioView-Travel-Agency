@@ -11,11 +11,27 @@ function Cabin({ cabin }: CabinProps) {
   const { id, name, maxCapacity, regularPrice, discount, image, description } =
     cabin;
 
+  // Robust image mapping to ensure correct paths
+  const cabinImages: { [key: number]: string } = {
+    1: "/images/lodge.jpg",
+    2: "/images/cabin2.jpg",
+    3: "/images/cabin3.jpg",
+    4: "/images/cabin4.jpg",
+    5: "/images/cabin5.jpg",
+    6: "/images/lodge1.jpg",
+    7: "/images/aregashlodge.jpg",
+    8: "/images/debrezietlodge.jpg",
+  };
+
+  const displayImage = cabinImages[id] || (image?.startsWith("http")
+    ? `/images/${image.split("/").pop()}`.replace(/%20/g, " ")
+    : image);
+
   return (
     <div className="card grid grid-cols-1 lg:grid-cols-[1.1fr_1fr] gap-10 p-8 lg:p-10 mb-16">
       <div className="relative h-[320px] lg:h-full overflow-hidden rounded-3xl group">
         <Image
-          src={image}
+          src={displayImage || "/images/lodge.jpg"}
           fill
           className="object-cover transition-transform duration-700 group-hover:scale-110"
           alt={`Lodge ${name}`}
