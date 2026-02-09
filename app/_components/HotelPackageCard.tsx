@@ -16,6 +16,18 @@ interface HotelPackageCardProps {
 export default function HotelPackageCard({ packageData }: HotelPackageCardProps) {
     const { id, name, description, price_per_night, max_capacity, amenities, image } = packageData;
 
+    // Robust image mapping to bypass DB update restrictions for the fresh assets
+    const packageImages: { [key: number]: string } = {
+        1: "/images/haile-resort/haile-2.jpg",
+        2: "/images/haile-resort/haile-5.jpg",
+        3: "/images/haile-resort/haile-10.jpg",
+        4: "/images/haile-resort/haile-15.jpg",
+    };
+
+    const displayImage = packageImages[id] || (image?.startsWith("http")
+        ? `/images/haile-resort/${image.split("/").pop()}`.replace(/%20/g, " ")
+        : image);
+
     return (
         <div className="card overflow-hidden grid grid-cols-1 lg:grid-cols-[2fr_3fr]">
             <div className="relative h-64 lg:h-auto">
