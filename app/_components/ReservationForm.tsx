@@ -34,8 +34,9 @@ function ReservationForm({ cabin, user }: ReservationFormProps) {
   const createBookingWithData = createBooking.bind(null, bookingData);
 
   return (
-    <div className="flex flex-col">
-      <div className="flex items-center justify-between gap-4 border-b border-slate-100 px-6 py-4 text-sm text-slate-600">
+  return (
+    <div className="flex flex-col gap-6">
+      <div className="flex items-center justify-between gap-4 text-sm text-slate-600 bg-slate-50 p-4 rounded-lg">
         <p>Logged in as</p>
 
         <div className="flex gap-3 items-center">
@@ -59,7 +60,7 @@ function ReservationForm({ cabin, user }: ReservationFormProps) {
           await createBookingWithData(formData);
           resetRange();
         }}
-        className="px-6 py-6 text-base flex gap-5 flex-col"
+        className="text-base flex gap-5 flex-col"
       >
         <div className="space-y-2">
           <label htmlFor="numGuests" className="input-label">

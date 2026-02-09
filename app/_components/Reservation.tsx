@@ -17,17 +17,24 @@ async function Reservation({ cabin }: ReservationProps) {
   const session = await auth();
 
   return (
-    <div className="card overflow-hidden grid grid-cols-1 lg:grid-cols-2 min-h-[420px]">
-      <DateSelector
-        settings={settings}
-        bookedDates={bookedDates}
-        cabin={cabin}
-      />
-      {session?.user ? (
-        <ReservationForm cabin={cabin} user={session.user} />
-      ) : (
-        <LoginMessage />
-      )}
+    <div className="grid grid-cols-1 lg:grid-cols-[1.2fr_1fr] gap-10 min-h-[420px]">
+      <div className="card p-6 lg:p-10">
+        <h3 className="text-xl font-semibold text-slate-900 mb-6">Select your dates</h3>
+        <DateSelector
+          settings={settings}
+          bookedDates={bookedDates}
+          cabin={cabin}
+        />
+      </div>
+
+      <div className="card p-6 lg:p-10 flex flex-col justify-center">
+        <h3 className="text-xl font-semibold text-slate-900 mb-6">Complete your booking</h3>
+        {session?.user ? (
+          <ReservationForm cabin={cabin} user={session.user} />
+        ) : (
+          <LoginMessage />
+        )}
+      </div>
     </div>
   );
 }

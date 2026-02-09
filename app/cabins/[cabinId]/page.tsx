@@ -9,7 +9,23 @@ import { Cabin as CabinType } from "../../_lib/types";
 
 export async function generateMetadata({ params }: { params: { cabinId: string } }) {
   const cabin = await getCabin(Number(params.cabinId));
-  const { name, description, image } = cabin;
+  const { id, name, description, image } = cabin;
+
+  // Robust image mapping for metadata
+  const cabinImages: { [key: number]: string } = {
+    1: "/images/lodge.jpg",
+    2: "/images/cabin2.jpg",
+    3: "/images/cabin3.jpg",
+    4: "/images/cabin4.jpg",
+    5: "/images/cabin5.jpg",
+    6: "/images/lodge1.jpg",
+    7: "/images/aregashlodge.jpg",
+    8: "/images/debrezietlodge.jpg",
+  };
+
+  const displayImage = cabinImages[id] || (image?.startsWith("http")
+    ? `/images/${image.split("/").pop()}`.replace(/%20/g, " ")
+    : image);
 
   return {
     title: `Lodge ${name}`,
@@ -17,7 +33,7 @@ export async function generateMetadata({ params }: { params: { cabinId: string }
     openGraph: {
       title: `Lodge ${name} | Ethioview Travel Agency`,
       description: description?.slice(0, 160),
-      images: [image],
+      images: [displayImage],
     },
   };
 }
