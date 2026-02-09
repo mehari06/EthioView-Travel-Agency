@@ -1,4 +1,4 @@
-# 🌲 The Wild Oasis Website
+# 🌲 EthioView
 
 A premium cabin booking website built with **Next.js**, **Supabase**, and **Tailwind CSS**. This is the guest-facing side of The Wild Oasis project, allowing users to explore luxury cabins, make reservations, and manage their profile.
 
