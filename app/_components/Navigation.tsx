@@ -6,8 +6,8 @@ export default async function Navigation() {
   const session = await auth();
 
   return (
-    <nav className="z-10">
-      <ul className="flex flex-wrap gap-1 items-center text-sm md:text-base">
+    <nav className="z-10 w-full sm:w-auto">
+      <ul className="flex flex-wrap gap-1 items-center justify-center sm:justify-end text-sm md:text-base">
         <li>
           <Link
             href="/destinations"
@@ -48,7 +48,7 @@ export default async function Navigation() {
             About
           </Link>
         </li>
-        <li className="ml-3">
+        <li className="ml-0 sm:ml-3">
           {session?.user?.image ? (
             <Link
               href="/account"
