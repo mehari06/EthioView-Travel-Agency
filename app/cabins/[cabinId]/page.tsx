@@ -2,10 +2,12 @@ import Cabin from "../../_components/Cabin";
 import Reservation from "../../_components/Reservation";
 import Spinner from "../../_components/Spinner";
 import AmenitiesList from "../../_components/AmenitiesList";
-import { getCabin, getCabins } from "../../_lib/data-service";
+import { getCabin } from "../../_lib/data-service";
 
 import { Suspense } from "react";
 import { Cabin as CabinType } from "../../_lib/types";
+
+export const dynamic = "force-dynamic";
 
 export async function generateMetadata({ params }: { params: { cabinId: string } }) {
   const cabin = await getCabin(Number(params.cabinId));
@@ -36,14 +38,6 @@ export async function generateMetadata({ params }: { params: { cabinId: string }
       images: [displayImage],
     },
   };
-}
-
-export async function generateStaticParams() {
-  const cabins = await getCabins();
-
-  const ids = cabins.map((cabin) => ({ cabinId: String(cabin.id) }));
-
-  return ids;
 }
 
 export default async function Page({ params }: { params: { cabinId: string } }) {
