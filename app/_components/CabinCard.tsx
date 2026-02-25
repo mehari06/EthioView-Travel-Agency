@@ -33,7 +33,7 @@ function CabinCard({ cabin }) {
       </div>
 
       <div className="flex-grow flex flex-col justify-between">
-        <div className="pt-8 pb-6 px-8">
+        <div className="pt-6 md:pt-8 pb-5 md:pb-6 px-6 md:px-8">
           <div className="flex flex-wrap justify-between items-center gap-4 mb-4">
             <h3 className="text-2xl md:text-3xl font-semibold text-slate-900">
               Lodge {name}
@@ -69,7 +69,7 @@ function CabinCard({ cabin }) {
           </div>
         </div>
 
-        <div className="px-8 pb-8">
+        <div className="px-6 md:px-8 pb-6 md:pb-8">
           <Link href={`/cabins/${id}`} className="btn-primary w-full md:w-auto">
             Lodge Details
           </Link>

@@ -8,6 +8,7 @@ import {
 } from "date-fns";
 import { DateRange, DayPicker } from "react-day-picker";
 import "react-day-picker/dist/style.css";
+import { useEffect, useState } from "react";
 import { useReservation } from "./ReservationContext";
 import { Cabin, Settings } from "../_lib/types";
 
@@ -29,6 +30,7 @@ interface DateSelectorProps {
 
 function DateSelector({ settings, cabin, bookedDates }: DateSelectorProps) {
   const { range, setRange, resetRange } = useReservation();
+  const [monthsToShow, setMonthsToShow] = useState(1);
 
   const displayRange = isAlreadyBooked(range, bookedDates) ? { from: undefined, to: undefined } : range;
 
@@ -38,25 +40,40 @@ function DateSelector({ settings, cabin, bookedDates }: DateSelectorProps) {
 
   const { minBookingLength, maxBookingLength } = settings;
 
+  useEffect(() => {
+    const media = window.matchMedia("(min-width: 1024px)");
+
+    const updateMonths = () => {
+      setMonthsToShow(media.matches ? 2 : 1);
+    };
+
+    updateMonths();
+    media.addEventListener("change", updateMonths);
+
+    return () => media.removeEventListener("change", updateMonths);
+  }, []);
+
   return (
     <div className="flex flex-col justify-between p-6">
-      <DayPicker
-        className="place-self-center"
-        mode="range"
-        onSelect={(range) => setRange(range)}
-        selected={displayRange}
-        min={minBookingLength + 1}
-        max={maxBookingLength}
-        fromMonth={new Date()}
-        fromDate={new Date()}
-        toYear={new Date().getFullYear() + 5}
-        captionLayout="dropdown"
-        numberOfMonths={2}
-        disabled={(curDate) =>
-          isPast(curDate) ||
-          bookedDates.some((date) => isSameDay(date, curDate))
-        }
-      />
+      <div className="w-full overflow-x-auto">
+        <DayPicker
+          className="w-full place-self-center"
+          mode="range"
+          onSelect={(range) => setRange(range)}
+          selected={displayRange}
+          min={minBookingLength + 1}
+          max={maxBookingLength}
+          fromMonth={new Date()}
+          fromDate={new Date()}
+          toYear={new Date().getFullYear() + 5}
+          captionLayout="dropdown"
+          numberOfMonths={monthsToShow}
+          disabled={(curDate) =>
+            isPast(curDate) ||
+            bookedDates.some((date) => isSameDay(date, curDate))
+          }
+        />
+      </div>
 
       <div className="mt-6 rounded-2xl border border-slate-100 bg-slate-50 p-4">
         <div className="flex flex-wrap items-center justify-between gap-4">

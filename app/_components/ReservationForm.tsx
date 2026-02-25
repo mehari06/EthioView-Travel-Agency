@@ -35,7 +35,7 @@ function ReservationForm({ cabin, user }: ReservationFormProps) {
 
   return (
     <div className="flex flex-col gap-6">
-      <div className="flex items-center justify-between gap-4 text-sm text-slate-600 bg-slate-50 p-4 rounded-lg">
+      <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 text-sm text-slate-600 bg-slate-50 p-4 rounded-lg">
         <p>Logged in as</p>
 
         <div className="flex gap-3 items-center">
@@ -94,7 +94,7 @@ function ReservationForm({ cabin, user }: ReservationFormProps) {
           />
         </div>
 
-        <div className="flex justify-between items-center gap-6">
+        <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center gap-3">
           {!(startDate && endDate) ? (
             <p className="text-slate-500 text-sm">
               Start by selecting dates
