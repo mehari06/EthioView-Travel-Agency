@@ -1,11 +1,9 @@
 import { Suspense } from "react";
 import Spinner from "../_components/Spinner";
 import { getTours } from "../_lib/data-service";
-import { auth } from "../_lib/auth";
 import Image from "next/image";
 import { ClockIcon, MapIcon, StarIcon } from "@heroicons/react/24/solid";
 import ReserveTourForm from "../_components/ReserveTourForm";
-import { Session } from "next-auth";
 import { Tour } from "../_lib/types";
 
 export const metadata = {
@@ -43,13 +41,6 @@ const fallbackTours: Tour[] = [
 ];
 
 export default async function Page() {
-  let session: Session | null = null;
-  try {
-    session = await auth();
-  } catch (error) {
-    console.error("Failed to load session on tours page:", error);
-  }
-
   return (
     <section className="section">
       <div className="container-main">
@@ -66,7 +57,7 @@ export default async function Page() {
 
         <div className="mt-10">
           <Suspense fallback={<Spinner />}>
-            <TourList session={session} />
+            <TourList />
           </Suspense>
         </div>
       </div>
@@ -74,7 +65,7 @@ export default async function Page() {
   );
 }
 
-async function TourList({ session }: { session: Session | null }) {
+async function TourList() {
   let tours: Tour[] = [];
   try {
     tours = await getTours();
@@ -96,13 +87,13 @@ async function TourList({ session }: { session: Session | null }) {
   return (
     <div className="space-y-10">
       {tours.map((tour) => (
-        <TourCard key={tour.id} tour={tour} session={session} />
+        <TourCard key={tour.id} tour={tour} />
       ))}
     </div>
   );
 }
 
-function TourCard({ tour, session }: { tour: Tour; session: Session | null }) {
+function TourCard({ tour }: { tour: Tour }) {
   const { name, duration_days, price, difficulty, description, image } = tour;
 
   // Robust image mapping to bypass DB update restrictions for the fresh assets
@@ -184,7 +175,7 @@ function TourCard({ tour, session }: { tour: Tour; session: Session | null }) {
             </p>
           </div>
           <div className="w-full md:w-auto min-w-[260px]">
-            <ReserveTourForm tour={tour} session={session} />
+            <ReserveTourForm tour={tour} session={null} />
           </div>
         </div>
       </div>

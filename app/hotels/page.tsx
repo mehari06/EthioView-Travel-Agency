@@ -3,7 +3,6 @@ import HotelCarousel from "../_components/HotelCarousel";
 import HotelPackageCard from "../_components/HotelPackageCard";
 import ReserveHotelForm from "../_components/ReserveHotelForm";
 import { getHotelPackages, getHotels } from "../_lib/data-service";
-import { auth } from "../_lib/auth";
 import Spinner from "../_components/Spinner";
 
 export const metadata = {
@@ -49,12 +48,6 @@ const fallbackHotelPackages = [
 ];
 
 export default async function Page() {
-  let session = null;
-  try {
-    session = await auth();
-  } catch (error) {
-    console.error("Failed to load session on hotels page:", error);
-  }
   const images = [
     "/images/haile-resort/haile-2.jpg",
     "/images/haile-resort/haile-3.jpg",
@@ -111,7 +104,7 @@ export default async function Page() {
 
           <div className="mt-8">
             <Suspense fallback={<Spinner />}>
-              <PackageList session={session} />
+              <PackageList />
             </Suspense>
           </div>
         </div>
@@ -146,7 +139,7 @@ export default async function Page() {
   );
 }
 
-async function PackageList({ session }: { session: any }) {
+async function PackageList() {
   let hotels: any[] = [];
   try {
     hotels = await getHotels();
@@ -183,7 +176,7 @@ async function PackageList({ session }: { session: any }) {
       {packages.map((pkg: any) => (
         <div key={pkg.id} className="grid grid-cols-1 lg:grid-cols-[2fr_1fr] gap-6">
           <HotelPackageCard packageData={pkg} />
-          <ReserveHotelForm packageData={pkg} session={session} />
+          <ReserveHotelForm packageData={pkg} session={null} />
         </div>
       ))}
     </div>

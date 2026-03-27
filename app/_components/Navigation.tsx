@@ -1,15 +1,6 @@
-import Image from "next/image";
 import Link from "next/link";
-import { auth } from "../_lib/auth";
 
-export default async function Navigation() {
-  let session = null;
-  try {
-    session = await auth();
-  } catch (error) {
-    console.error("Navigation auth failed:", error);
-  }
-
+export default function Navigation() {
   return (
     <nav className="z-10 w-full sm:w-auto">
       <ul className="flex flex-wrap gap-1 items-center justify-center sm:justify-end text-sm md:text-base">
@@ -54,30 +45,9 @@ export default async function Navigation() {
           </Link>
         </li>
         <li className="ml-0 sm:ml-3">
-          {session?.user?.image ? (
-            <Link
-              href="/account"
-              className="btn-primary px-4 py-2 text-sm flex items-center gap-2"
-            >
-              <div className="relative h-7 w-7">
-                <Image
-                  className="rounded-full border-2 border-white/30 object-cover"
-                  src={session.user.image}
-                  fill
-                  alt={session.user.name || "User profile"}
-                  referrerPolicy="no-referrer"
-                />
-              </div>
-              <span>My Account</span>
-            </Link>
-          ) : (
-            <Link
-              href="/account"
-              className="btn-primary px-5 py-2.5 text-sm"
-            >
-              Sign In
-            </Link>
-          )}
+          <Link href="/account" className="btn-primary px-5 py-2.5 text-sm">
+            My Account
+          </Link>
         </li>
       </ul>
     </nav>
