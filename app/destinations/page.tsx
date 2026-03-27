@@ -7,6 +7,33 @@ export const metadata = {
   title: "Destinations",
 };
 
+const fallbackDestinations = [
+  {
+    id: 1,
+    name: "Axum",
+    region: "Tigray",
+    description: "Ancient obelisks, royal tombs, and one of Ethiopia's most historic cities.",
+    image: "/images/aksum.jpg",
+    highlights: ["Stelae Park", "Queen of Sheba legends", "Historic churches"],
+  },
+  {
+    id: 3,
+    name: "Lalibela",
+    region: "Amhara",
+    description: "Famous for its rock-hewn churches and living spiritual traditions.",
+    image: "/images/lalibela.jpg",
+    highlights: ["Rock-hewn churches", "UNESCO heritage", "Pilgrimage culture"],
+  },
+  {
+    id: 11,
+    name: "Hawassa",
+    region: "Sidama",
+    description: "A lakeside city known for relaxing views, local markets, and birdlife.",
+    image: "/images/hawassa.png",
+    highlights: ["Lake Hawassa", "Fish market", "Resort escapes"],
+  },
+];
+
 export default function Page() {
   return (
     <section className="section">
@@ -37,13 +64,10 @@ async function DestinationList() {
     destinations = await getDestinations();
   } catch (error) {
     console.error("Failed to load destinations:", error);
-    return (
-      <p className="text-slate-600">
-        Destination information is temporarily unavailable. Please try again
-        shortly.
-      </p>
-    );
+    destinations = fallbackDestinations;
   }
+
+  if (!destinations?.length) destinations = fallbackDestinations;
 
   if (!destinations.length)
     return (

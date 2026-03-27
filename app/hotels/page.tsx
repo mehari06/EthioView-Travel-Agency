@@ -10,6 +10,44 @@ export const metadata = {
   title: "Hotels",
 };
 
+const fallbackHotel = {
+  id: 1,
+  name: "Haile Resort Hawassa",
+};
+
+const fallbackHotelPackages = [
+  {
+    id: 1,
+    hotel_id: 1,
+    name: "Deluxe Lake View Room",
+    description: "Elegant room with balcony views over Lake Hawassa.",
+    price_per_night: 165,
+    max_capacity: 2,
+    amenities: ["Breakfast included", "Free Wi-Fi", "Lake-view balcony", "Pool access"],
+    image: "/images/haile-resort/haile-2.jpg",
+  },
+  {
+    id: 2,
+    hotel_id: 1,
+    name: "Family Suite",
+    description: "Spacious suite designed for family comfort and flexibility.",
+    price_per_night: 240,
+    max_capacity: 4,
+    amenities: ["Breakfast included", "Two sleeping areas", "Garden view", "Kids-friendly setup"],
+    image: "/images/haile-resort/haile-5.jpg",
+  },
+  {
+    id: 3,
+    hotel_id: 1,
+    name: "Executive Business Suite",
+    description: "Premium setup for work trips with added privacy and comfort.",
+    price_per_night: 295,
+    max_capacity: 2,
+    amenities: ["Workspace", "Fast Wi-Fi", "Airport transfer support", "Lounge access"],
+    image: "/images/haile-resort/haile-10.jpg",
+  },
+];
+
 export default async function Page() {
   let session = null;
   try {
@@ -114,34 +152,23 @@ async function PackageList({ session }: { session: any }) {
     hotels = await getHotels();
   } catch (error) {
     console.error("Failed to load hotels:", error);
-    return (
-      <p className="text-slate-600">
-        Hotel information is temporarily unavailable. Please try again shortly.
-      </p>
-    );
+    hotels = [fallbackHotel];
   }
 
-  const haileResort = hotels?.find((h: any) => h.name === "Haile Resort Hawassa");
+  if (!hotels?.length) hotels = [fallbackHotel];
 
-  if (!haileResort) {
-    return (
-      <p className="text-slate-600">
-        Hotel information is being updated. Please check back later.
-      </p>
-    );
-  }
+  const haileResort =
+    hotels?.find((h: any) => h.name === "Haile Resort Hawassa") || fallbackHotel;
 
   let packages: any[] = [];
   try {
     packages = await getHotelPackages(haileResort.id);
   } catch (error) {
     console.error("Failed to load hotel packages:", error);
-    return (
-      <p className="text-slate-600">
-        Package details are temporarily unavailable. Please try again shortly.
-      </p>
-    );
+    packages = fallbackHotelPackages;
   }
+
+  if (!packages?.length) packages = fallbackHotelPackages;
 
   if (!packages || packages.length === 0) {
     return (

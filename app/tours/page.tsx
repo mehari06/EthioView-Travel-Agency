@@ -12,6 +12,36 @@ export const metadata = {
   title: "Tours",
 };
 
+const fallbackTours: Tour[] = [
+  {
+    id: 1,
+    name: "Wenchi Crater Lake Adventure",
+    duration_days: 2,
+    price: 280,
+    difficulty: "Easy",
+    description: "Boat rides, crater viewpoints, and a calm highland escape near Addis.",
+    image: "/images/wenchi.jpg",
+  },
+  {
+    id: 3,
+    name: "Simien Highlands Wildlife Trek",
+    duration_days: 5,
+    price: 640,
+    difficulty: "Moderate",
+    description: "Hike dramatic escarpments and spot Gelada baboons and Walia ibex.",
+    image: "/images/geladababbon.jpg",
+  },
+  {
+    id: 4,
+    name: "Lalibela Heritage Journey",
+    duration_days: 3,
+    price: 520,
+    difficulty: "Easy",
+    description: "Explore the iconic rock-hewn churches with local cultural guides.",
+    image: "/images/lalibela.jpg",
+  },
+];
+
 export default async function Page() {
   let session: Session | null = null;
   try {
@@ -50,12 +80,10 @@ async function TourList({ session }: { session: Session | null }) {
     tours = await getTours();
   } catch (error) {
     console.error("Failed to load tours:", error);
-    return (
-      <p className="text-slate-600">
-        Tour information is temporarily unavailable. Please try again shortly.
-      </p>
-    );
+    tours = fallbackTours;
   }
+
+  if (!tours?.length) tours = fallbackTours;
 
   if (!tours.length)
     return (
