@@ -4,6 +4,7 @@ import { getHotelBookings } from "@/app/_lib/data-service";
 import Spinner from "@/app/_components/Spinner";
 import { format, isPast } from "date-fns";
 import { deleteHotelBookingAction } from "@/app/_lib/hotel-actions";
+import { resolveGuestId } from "@/app/_lib/guest";
 import {
   CalendarDaysIcon,
   CurrencyDollarIcon,
@@ -37,7 +38,7 @@ export default async function Page() {
 }
 
 async function HotelBookingList({ session }: { session: any }) {
-  if (!session?.user?.guestId) {
+  if (!session?.user) {
     return (
       <p className="text-lg text-slate-600">
         Sign in to view your hotel bookings.
@@ -45,9 +46,18 @@ async function HotelBookingList({ session }: { session: any }) {
     );
   }
 
+  const guestId = await resolveGuestId(session);
+  if (!guestId) {
+    return (
+      <p className="text-lg text-slate-600">
+        Your account is signed in, but hotel bookings are temporarily unavailable.
+      </p>
+    );
+  }
+
   let bookings: any[] = [];
   try {
-    bookings = await getHotelBookings(session.user.guestId);
+    bookings = await getHotelBookings(guestId);
   } catch {
     bookings = [];
   }

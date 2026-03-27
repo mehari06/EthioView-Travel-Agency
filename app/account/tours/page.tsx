@@ -4,6 +4,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { format } from "date-fns";
 import { TourBooking } from "../../_lib/types";
+import { resolveGuestId } from "../../_lib/guest";
 
 export const metadata = {
     title: "My Tours",
@@ -17,7 +18,7 @@ export default async function Page() {
         session = null;
     }
 
-    if (!session?.user?.guestId) {
+    if (!session?.user) {
         return (
             <p className="text-lg">
                 Sign in to view your tour reservations.
@@ -25,9 +26,18 @@ export default async function Page() {
         );
     }
 
+    const guestId = await resolveGuestId(session);
+    if (!guestId) {
+        return (
+            <p className="text-lg">
+                Your account is signed in, but tour reservations are temporarily unavailable.
+            </p>
+        );
+    }
+
     let bookings: TourBooking[] = [];
     try {
-        bookings = await getTourBookings(session.user.guestId);
+        bookings = await getTourBookings(guestId);
     } catch {
         bookings = [];
     }
