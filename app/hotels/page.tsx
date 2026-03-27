@@ -2,16 +2,10 @@ import { Suspense } from "react";
 import HotelCarousel from "../_components/HotelCarousel";
 import HotelPackageCard from "../_components/HotelPackageCard";
 import ReserveHotelForm from "../_components/ReserveHotelForm";
-import { getHotelPackages, getHotels } from "../_lib/data-service";
 import Spinner from "../_components/Spinner";
 
 export const metadata = {
   title: "Hotels",
-};
-
-const fallbackHotel = {
-  id: 1,
-  name: "Haile Resort Hawassa",
 };
 
 const fallbackHotelPackages = [
@@ -139,29 +133,8 @@ export default async function Page() {
   );
 }
 
-async function PackageList() {
-  let hotels: any[] = [];
-  try {
-    hotels = await getHotels();
-  } catch (error) {
-    console.error("Failed to load hotels:", error);
-    hotels = [fallbackHotel];
-  }
-
-  if (!hotels?.length) hotels = [fallbackHotel];
-
-  const haileResort =
-    hotels?.find((h: any) => h.name === "Haile Resort Hawassa") || fallbackHotel;
-
-  let packages: any[] = [];
-  try {
-    packages = await getHotelPackages(haileResort.id);
-  } catch (error) {
-    console.error("Failed to load hotel packages:", error);
-    packages = fallbackHotelPackages;
-  }
-
-  if (!packages?.length) packages = fallbackHotelPackages;
+function PackageList() {
+  const packages = fallbackHotelPackages;
 
   if (!packages || packages.length === 0) {
     return (

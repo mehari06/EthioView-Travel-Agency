@@ -1,6 +1,5 @@
 import { Suspense } from "react";
 import Spinner from "../_components/Spinner";
-import { getTours } from "../_lib/data-service";
 import Image from "next/image";
 import { ClockIcon, MapIcon, StarIcon } from "@heroicons/react/24/solid";
 import ReserveTourForm from "../_components/ReserveTourForm";
@@ -65,16 +64,8 @@ export default async function Page() {
   );
 }
 
-async function TourList() {
-  let tours: Tour[] = [];
-  try {
-    tours = await getTours();
-  } catch (error) {
-    console.error("Failed to load tours:", error);
-    tours = fallbackTours;
-  }
-
-  if (!tours?.length) tours = fallbackTours;
+function TourList() {
+  const tours = fallbackTours;
 
   if (!tours.length)
     return (

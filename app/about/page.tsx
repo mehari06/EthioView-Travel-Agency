@@ -1,6 +1,5 @@
 import Image from "next/image";
 import image1 from "../../public/about-1.jpg";
-import { getCabins } from "../_lib/data-service";
 
 export const revalidate = 86400;
 
@@ -8,13 +7,9 @@ export const metadata = {
   title: "About",
 };
 
-export default async function Page() {
-  let cabins = [];
-  try {
-    cabins = await getCabins();
-  } catch (error) {
-    console.error("Failed to load cabins on about page:", error);
-  }
+const fallbackCabinCount = 8;
+
+export default function Page() {
 
   return (
     <div className="grid grid-cols-5 gap-x-24 gap-y-32 text-lg items-center">
@@ -30,7 +25,7 @@ export default async function Page() {
             Ethioview Travel Agency offers a sanctuary for those seeking to reconnect with the cradle of humanity.
           </p>
           <p>
-            Our {cabins.length} luxury lodges provide a base for exploring the
+            Our {fallbackCabinCount} luxury lodges provide a base for exploring the
             majestic peaks, home to the unique Walia Ibex and Gelada Baboons.
             Experience the warmth of a traditional coffee ceremony as the sun sets
             over the jagged cliffs.

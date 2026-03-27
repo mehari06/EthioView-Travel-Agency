@@ -1,6 +1,5 @@
 import { Suspense } from "react";
 import Spinner from "../_components/Spinner";
-import { getDestinations } from "../_lib/data-service";
 import Image from "next/image";
 
 export const metadata = {
@@ -58,16 +57,8 @@ export default function Page() {
   );
 }
 
-async function DestinationList() {
-  let destinations: any[] = [];
-  try {
-    destinations = await getDestinations();
-  } catch (error) {
-    console.error("Failed to load destinations:", error);
-    destinations = fallbackDestinations;
-  }
-
-  if (!destinations?.length) destinations = fallbackDestinations;
+function DestinationList() {
+  const destinations = fallbackDestinations;
 
   if (!destinations.length)
     return (
