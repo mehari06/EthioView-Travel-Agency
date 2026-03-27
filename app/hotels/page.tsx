@@ -11,7 +11,12 @@ export const metadata = {
 };
 
 export default async function Page() {
-  const session = await auth();
+  let session = null;
+  try {
+    session = await auth();
+  } catch (error) {
+    console.error("Failed to load session on hotels page:", error);
+  }
   const images = [
     "/images/haile-resort/haile-2.jpg",
     "/images/haile-resort/haile-3.jpg",

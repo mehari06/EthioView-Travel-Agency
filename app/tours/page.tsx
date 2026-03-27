@@ -13,7 +13,12 @@ export const metadata = {
 };
 
 export default async function Page() {
-  const session = await auth();
+  let session: Session | null = null;
+  try {
+    session = await auth();
+  } catch (error) {
+    console.error("Failed to load session on tours page:", error);
+  }
 
   return (
     <section className="section">

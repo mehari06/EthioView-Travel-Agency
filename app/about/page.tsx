@@ -9,7 +9,12 @@ export const metadata = {
 };
 
 export default async function Page() {
-  const cabins = await getCabins();
+  let cabins = [];
+  try {
+    cabins = await getCabins();
+  } catch (error) {
+    console.error("Failed to load cabins on about page:", error);
+  }
 
   return (
     <div className="grid grid-cols-5 gap-x-24 gap-y-32 text-lg items-center">
