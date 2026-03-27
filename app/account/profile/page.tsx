@@ -8,11 +8,31 @@ export const metadata = {
 };
 
 export default async function Page() {
-  const session = await auth();
-  if (!session?.user?.email) return null;
+  let session = null;
+  try {
+    session = await auth();
+  } catch {
+    session = null;
+  }
 
-  const guest = await getGuest(session.user.email);
-  if (!guest) return null;
+  if (!session?.user?.email) {
+    return <p className="text-lg text-primary-200">Sign in to update your profile.</p>;
+  }
+
+  let guest = null;
+  try {
+    guest = await getGuest(session.user.email);
+  } catch {
+    guest = null;
+  }
+
+  if (!guest) {
+    return (
+      <p className="text-lg text-primary-200">
+        We could not load your profile right now. Please try again shortly.
+      </p>
+    );
+  }
 
   return (
     <div>

@@ -16,7 +16,12 @@ export const metadata = {
 };
 
 export default async function Page() {
-  const session = await auth();
+  let session = null;
+  try {
+    session = await auth();
+  } catch {
+    session = null;
+  }
 
   return (
     <div>
@@ -32,7 +37,20 @@ export default async function Page() {
 }
 
 async function HotelBookingList({ session }: { session: any }) {
-  const bookings = await getHotelBookings(session.user.guestId);
+  if (!session?.user?.guestId) {
+    return (
+      <p className="text-lg text-slate-600">
+        Sign in to view your hotel bookings.
+      </p>
+    );
+  }
+
+  let bookings: any[] = [];
+  try {
+    bookings = await getHotelBookings(session.user.guestId);
+  } catch {
+    bookings = [];
+  }
 
   if (!bookings || bookings.length === 0) {
     return (

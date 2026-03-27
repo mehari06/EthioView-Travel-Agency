@@ -7,10 +7,27 @@ export const metadata = {
 };
 
 export default async function Page() {
-  const session = await auth();
-  if (!session) return null;
+  let session = null;
+  try {
+    session = await auth();
+  } catch {
+    session = null;
+  }
 
-  const bookings = await getBookings(session.user.guestId);
+  if (!session?.user?.guestId) {
+    return (
+      <p className="text-lg">
+        Sign in to view your reservations.
+      </p>
+    );
+  }
+
+  let bookings = [];
+  try {
+    bookings = await getBookings(session.user.guestId);
+  } catch {
+    bookings = [];
+  }
 
   return (
     <div>

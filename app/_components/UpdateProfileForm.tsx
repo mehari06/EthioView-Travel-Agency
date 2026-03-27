@@ -42,14 +42,18 @@ function UpdateProfileForm({ guest, children }: UpdateProfileFormProps) {
       <div className="space-y-2">
         <div className="flex items-center justify-between">
           <label htmlFor="nationality">Where are you from?</label>
-          <div className="relative h-5 w-8">
-            <Image
-              src={countryFlag}
-              fill
-              alt="Country flag"
-              className="rounded-sm object-cover"
-            />
-          </div>
+          {countryFlag ? (
+            <div className="relative h-5 w-8">
+              <Image
+                src={countryFlag}
+                fill
+                alt="Country flag"
+                className="rounded-sm object-cover"
+              />
+            </div>
+          ) : (
+            <span className="text-sm text-primary-400">Not set</span>
+          )}
         </div>
 
         {children}

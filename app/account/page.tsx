@@ -5,9 +5,14 @@ export const metadata = {
 };
 
 export default async function Page() {
-  const session = await auth();
+  let session = null;
+  try {
+    session = await auth();
+  } catch {
+    session = null;
+  }
 
-  const firstName = session.user.name.split(" ").at(0);
+  const firstName = session?.user?.name?.split(" ").at(0) || "Guest";
 
   return (
     <h2 className="font-semibold text-2xl text-accent-400 mb-7">
