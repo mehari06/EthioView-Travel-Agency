@@ -104,7 +104,18 @@ export default async function Page() {
 }
 
 async function PackageList({ session }: { session: any }) {
-  const hotels = await getHotels();
+  let hotels: any[] = [];
+  try {
+    hotels = await getHotels();
+  } catch (error) {
+    console.error("Failed to load hotels:", error);
+    return (
+      <p className="text-slate-600">
+        Hotel information is temporarily unavailable. Please try again shortly.
+      </p>
+    );
+  }
+
   const haileResort = hotels?.find((h: any) => h.name === "Haile Resort Hawassa");
 
   if (!haileResort) {
@@ -115,7 +126,17 @@ async function PackageList({ session }: { session: any }) {
     );
   }
 
-  const packages = await getHotelPackages(haileResort.id);
+  let packages: any[] = [];
+  try {
+    packages = await getHotelPackages(haileResort.id);
+  } catch (error) {
+    console.error("Failed to load hotel packages:", error);
+    return (
+      <p className="text-slate-600">
+        Package details are temporarily unavailable. Please try again shortly.
+      </p>
+    );
+  }
 
   if (!packages || packages.length === 0) {
     return (

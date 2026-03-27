@@ -26,7 +26,11 @@ export default function HotelPackageCard({ packageData }: HotelPackageCardProps)
 
     const displayImage = packageImages[id] || (image?.startsWith("http")
         ? `/images/haile-resort/${image.split("/").pop()}`.replace(/%20/g, " ")
-        : image);
+        : image) || "/images/haile-resort/haile-2.jpg";
+
+    const safeAmenities = Array.isArray(amenities)
+        ? amenities.filter((item) => typeof item === "string" && item.trim().length > 0)
+        : [];
 
     return (
         <div className="card overflow-hidden grid grid-cols-1 lg:grid-cols-[2fr_3fr]">
@@ -66,16 +70,20 @@ export default function HotelPackageCard({ packageData }: HotelPackageCardProps)
                     <h4 className="text-xs font-semibold uppercase tracking-[0.2em] text-slate-500 mb-3">
                         Amenities
                     </h4>
-                    <div className="flex flex-wrap gap-2">
-                        {amenities.map((amenity, index) => (
-                            <span
-                                key={index}
-                                className="tag"
-                            >
-                                {amenity}
-                            </span>
-                        ))}
-                    </div>
+                    {safeAmenities.length > 0 ? (
+                        <div className="flex flex-wrap gap-2">
+                            {safeAmenities.map((amenity, index) => (
+                                <span
+                                    key={index}
+                                    className="tag"
+                                >
+                                    {amenity}
+                                </span>
+                            ))}
+                        </div>
+                    ) : (
+                        <p className="text-sm text-slate-500">Amenities will be updated soon.</p>
+                    )}
                 </div>
 
                 <div className="flex justify-between items-center pt-6 border-t border-slate-100">

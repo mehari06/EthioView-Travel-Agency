@@ -32,7 +32,18 @@ export default function Page() {
 }
 
 async function DestinationList() {
-  const destinations = await getDestinations();
+  let destinations: any[] = [];
+  try {
+    destinations = await getDestinations();
+  } catch (error) {
+    console.error("Failed to load destinations:", error);
+    return (
+      <p className="text-slate-600">
+        Destination information is temporarily unavailable. Please try again
+        shortly.
+      </p>
+    );
+  }
 
   if (!destinations.length)
     return (
@@ -67,7 +78,7 @@ function DestinationCard({ destination }: { destination: any }) {
 
   const displayImage = destinationImages[id] || (image?.startsWith("http")
     ? `/images/${image.split("/").pop()}`.replace(/%20/g, " ")
-    : image);
+    : image) || "/images/aksum.jpg";
 
   return (
     <div className="card overflow-hidden flex flex-col">

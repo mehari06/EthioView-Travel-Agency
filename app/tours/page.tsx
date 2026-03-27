@@ -40,7 +40,17 @@ export default async function Page() {
 }
 
 async function TourList({ session }: { session: Session | null }) {
-  const tours = await getTours();
+  let tours: Tour[] = [];
+  try {
+    tours = await getTours();
+  } catch (error) {
+    console.error("Failed to load tours:", error);
+    return (
+      <p className="text-slate-600">
+        Tour information is temporarily unavailable. Please try again shortly.
+      </p>
+    );
+  }
 
   if (!tours.length)
     return (
@@ -77,7 +87,7 @@ function TourCard({ tour, session }: { tour: Tour; session: Session | null }) {
 
   const displayImage = tourImages[tour.id] || (image
     ? `/images/${image.split("/").pop()}`.replace(/%20/g, " ")
-    : image);
+    : image) || "/images/wenchi.jpg";
 
   return (
     <div className="card overflow-hidden grid grid-cols-1 lg:grid-cols-[1.1fr_1fr]">
