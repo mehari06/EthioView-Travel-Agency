@@ -10,11 +10,34 @@ interface ReservationProps {
 }
 
 async function Reservation({ cabin }: ReservationProps) {
-  const [settings, bookedDates] = await Promise.all([
-    getSettings(),
-    getBookedDatesByCabinId(cabin.id),
-  ]);
-  const session = await auth();
+  const defaultSettings = {
+    id: 1,
+    minBookingLength: 1,
+    maxBookingLength: 30,
+    maxGuestsPerBooking: 8,
+    breakfastPrice: 0,
+  };
+
+  let settings = defaultSettings;
+  let bookedDates: Date[] = [];
+  try {
+    const [dbSettings, dbBookedDates] = await Promise.all([
+      getSettings(),
+      getBookedDatesByCabinId(cabin.id),
+    ]);
+    settings = dbSettings || defaultSettings;
+    bookedDates = dbBookedDates || [];
+  } catch {
+    settings = defaultSettings;
+    bookedDates = [];
+  }
+
+  let session = null;
+  try {
+    session = await auth();
+  } catch {
+    session = null;
+  }
 
   return (
     <div className="grid grid-cols-1 lg:grid-cols-[1.2fr_1fr] gap-10 min-h-[420px]">

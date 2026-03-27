@@ -2,11 +2,18 @@ import { unstable_noStore as noStore } from "next/cache";
 
 import CabinCard from "@/app/_components/CabinCard";
 import { getCabins } from "../_lib/data-service";
+import { fallbackCabins } from "../_lib/fallback-cabins";
 
 async function CabinList({ filter }) {
   // noStore();
 
-  const cabins = await getCabins();
+  let cabins = fallbackCabins;
+  try {
+    const dbCabins = await getCabins();
+    if (dbCabins?.length) cabins = dbCabins;
+  } catch {
+    cabins = fallbackCabins;
+  }
 
   if (!cabins.length) return null;
 
