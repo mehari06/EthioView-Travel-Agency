@@ -3,10 +3,13 @@ import HotelCarousel from "../_components/HotelCarousel";
 import HotelPackageCard from "../_components/HotelPackageCard";
 import ReserveHotelForm from "../_components/ReserveHotelForm";
 import Spinner from "../_components/Spinner";
+import { auth } from "../_lib/auth";
+import { Session } from "next-auth";
 
 export const metadata = {
   title: "Hotels",
 };
+export const dynamic = "force-dynamic";
 
 const fallbackHotelPackages = [
   {
@@ -42,6 +45,13 @@ const fallbackHotelPackages = [
 ];
 
 export default async function Page() {
+  let session: Session | null = null;
+  try {
+    session = await auth();
+  } catch {
+    session = null;
+  }
+
   const images = [
     "/images/haile-resort/haile-2.jpg",
     "/images/haile-resort/haile-3.jpg",
@@ -98,7 +108,7 @@ export default async function Page() {
 
           <div className="mt-8">
             <Suspense fallback={<Spinner />}>
-              <PackageList />
+              <PackageList session={session} />
             </Suspense>
           </div>
         </div>
@@ -133,7 +143,7 @@ export default async function Page() {
   );
 }
 
-function PackageList() {
+function PackageList({ session }: { session: Session | null }) {
   const packages = fallbackHotelPackages;
 
   if (!packages || packages.length === 0) {
@@ -149,7 +159,7 @@ function PackageList() {
       {packages.map((pkg: any) => (
         <div key={pkg.id} className="grid grid-cols-1 lg:grid-cols-[2fr_1fr] gap-6">
           <HotelPackageCard packageData={pkg} />
-          <ReserveHotelForm packageData={pkg} session={null} />
+          <ReserveHotelForm packageData={pkg} session={session} />
         </div>
       ))}
     </div>

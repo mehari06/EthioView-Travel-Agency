@@ -5,10 +5,13 @@ import { getBookings } from "./data-service";
 import { supabase } from "./supabase";
 import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
+import { resolveGuestId } from "./guest";
 
 export async function updateGuest(formData: FormData) {
   const session = await auth();
   if (!session) throw new Error("You must be logged in");
+  const guestId = await resolveGuestId(session);
+  if (!guestId) redirect("/account/profile?status=guest_unavailable");
 
   const nationalID = formData.get("nationalID") as string;
   const nationalityData = formData.get("nationality") as string;
@@ -22,7 +25,7 @@ export async function updateGuest(formData: FormData) {
   const { error } = await supabase
     .from("guests")
     .update(updateData)
-    .eq("id", session.user.guestId);
+    .eq("id", guestId);
 
   if (error) throw new Error("Guest could not be updated");
 
@@ -31,10 +34,12 @@ export async function updateGuest(formData: FormData) {
 
 export async function createBooking(bookingData: any, formData: FormData) {
   const session = await auth();
-  if (!session) throw new Error("You must be logged in");
+  if (!session) redirect("/login");
+  const guestId = await resolveGuestId(session);
+  if (!guestId) redirect("/account/profile?status=guest_unavailable");
 
   const newBooking = {
-    guest_id: session.user.guestId,
+    guest_id: guestId,
     cabin_id: bookingData.cabinId,
     start_date: bookingData.startDate,
     end_date: bookingData.endDate,
@@ -53,7 +58,7 @@ export async function createBooking(bookingData: any, formData: FormData) {
 
   if (error) {
     console.error(error);
-    throw new Error("Booking could not be created");
+    redirect(`/cabins/${bookingData.cabinId}?status=booking_failed`);
   }
 
   revalidatePath(`/cabins/${bookingData.cabinId}`);
@@ -63,9 +68,11 @@ export async function createBooking(bookingData: any, formData: FormData) {
 
 export async function deleteBooking(bookingId: number) {
   const session = await auth();
-  if (!session) throw new Error("You must be logged in");
+  if (!session) redirect("/login");
+  const guestId = await resolveGuestId(session);
+  if (!guestId) redirect("/account/profile?status=guest_unavailable");
 
-  const guestBookings = await getBookings(session.user.guestId);
+  const guestBookings = await getBookings(guestId);
   const guestBookingIds = guestBookings.map((booking) => booking.id);
 
   if (!guestBookingIds.includes(bookingId))
@@ -85,9 +92,11 @@ export async function updateBooking(formData: FormData) {
   const bookingId = Number(formData.get("bookingId"));
 
   const session = await auth();
-  if (!session) throw new Error("You must be logged in");
+  if (!session) redirect("/login");
+  const guestId = await resolveGuestId(session);
+  if (!guestId) redirect("/account/profile?status=guest_unavailable");
 
-  const guestBookings = await getBookings(session.user.guestId);
+  const guestBookings = await getBookings(guestId);
   const guestBookingIds = guestBookings.map((booking) => booking.id);
 
   if (!guestBookingIds.includes(bookingId))
@@ -115,11 +124,13 @@ export async function updateBooking(formData: FormData) {
 
 export async function createTourBooking(tourData: any, formData: FormData) {
   const session = await auth();
-  if (!session) throw new Error("You must be logged in");
+  if (!session) redirect("/login");
+  const guestId = await resolveGuestId(session);
+  if (!guestId) redirect("/account/profile?status=guest_unavailable");
 
   const newBooking = {
     tour_id: tourData.id,
-    guest_id: session.user.guestId,
+    guest_id: guestId,
     num_guests: Number(formData.get("numGuests") || 1),
     total_price: tourData.price * Number(formData.get("numGuests") || 1),
     status: "unconfirmed",
@@ -131,7 +142,7 @@ export async function createTourBooking(tourData: any, formData: FormData) {
 
   if (error) {
     console.error(error);
-    throw new Error("Tour booking could not be created");
+    redirect("/tours?status=booking_failed");
   }
 
   revalidatePath("/tours");

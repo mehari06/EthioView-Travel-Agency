@@ -4,10 +4,13 @@ import Image from "next/image";
 import { ClockIcon, MapIcon, StarIcon } from "@heroicons/react/24/solid";
 import ReserveTourForm from "../_components/ReserveTourForm";
 import { Tour } from "../_lib/types";
+import { auth } from "../_lib/auth";
+import { Session } from "next-auth";
 
 export const metadata = {
   title: "Tours",
 };
+export const dynamic = "force-dynamic";
 
 const fallbackTours: Tour[] = [
   {
@@ -94,6 +97,13 @@ const fallbackTours: Tour[] = [
 ];
 
 export default async function Page() {
+  let session: Session | null = null;
+  try {
+    session = await auth();
+  } catch {
+    session = null;
+  }
+
   return (
     <section className="section">
       <div className="container-main">
@@ -110,7 +120,7 @@ export default async function Page() {
 
         <div className="mt-10">
           <Suspense fallback={<Spinner />}>
-            <TourList />
+            <TourList session={session} />
           </Suspense>
         </div>
       </div>
@@ -118,7 +128,7 @@ export default async function Page() {
   );
 }
 
-function TourList() {
+function TourList({ session }: { session: Session | null }) {
   const tours = fallbackTours;
 
   if (!tours.length)
@@ -132,13 +142,13 @@ function TourList() {
   return (
     <div className="space-y-10">
       {tours.map((tour) => (
-        <TourCard key={tour.id} tour={tour} />
+        <TourCard key={tour.id} tour={tour} session={session} />
       ))}
     </div>
   );
 }
 
-function TourCard({ tour }: { tour: Tour }) {
+function TourCard({ tour, session }: { tour: Tour; session: Session | null }) {
   const { name, duration_days, price, difficulty, description, image } = tour;
 
   // Robust image mapping to bypass DB update restrictions for the fresh assets
@@ -220,7 +230,7 @@ function TourCard({ tour }: { tour: Tour }) {
             </p>
           </div>
           <div className="w-full md:w-auto min-w-[260px]">
-            <ReserveTourForm tour={tour} session={null} />
+            <ReserveTourForm tour={tour} session={session} />
           </div>
         </div>
       </div>
