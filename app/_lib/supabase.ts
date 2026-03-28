@@ -7,4 +7,10 @@ if (!supabaseUrl || !supabaseKey) {
     console.warn("Supabase URL or Key is missing from environment variables!");
 }
 
-export const supabase = createClient(supabaseUrl!, supabaseKey!);
+const fallbackSupabaseUrl = "https://placeholder.invalid";
+const fallbackSupabaseKey = "placeholder-anon-key";
+
+export const supabase = createClient(
+    supabaseUrl || fallbackSupabaseUrl,
+    supabaseKey || fallbackSupabaseKey
+);

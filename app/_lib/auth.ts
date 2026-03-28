@@ -13,10 +13,11 @@ declare module "next-auth" {
 const authConfig = {
   providers: [
     Google({
-      clientId: process.env.AUTH_GOOGLE_ID,
-      clientSecret: process.env.AUTH_GOOGLE_SECRET,
+      clientId: process.env.AUTH_GOOGLE_ID || "placeholder-google-client-id",
+      clientSecret: process.env.AUTH_GOOGLE_SECRET || "placeholder-google-client-secret",
     }),
   ],
+  secret: process.env.AUTH_SECRET || "dev-insecure-auth-secret",
   callbacks: {
     authorized({ auth, request }: { auth: Session | null; request: any }) {
       return !!auth?.user;

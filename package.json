@@ -7,7 +7,13 @@
     "build": "next build",
     "start": "next start",
     "prod": "next build && next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "test": "jest --runInBand",
+    "test:watch": "jest --watch",
+    "test:unit": "jest --runInBand tests/unit",
+    "test:integration": "jest --runInBand tests/integration",
+    "test:e2e": "playwright test",
+    "test:e2e:ui": "playwright test --ui"
   },
   "dependencies": {
     "@heroicons/react": "^2.1.3",
@@ -23,12 +29,19 @@
     "sharp": "^0.34.5"
   },
   "devDependencies": {
+    "@playwright/test": "^1.58.2",
+    "@testing-library/jest-dom": "^6.9.1",
+    "@testing-library/react": "^16.3.2",
+    "@testing-library/user-event": "^14.6.1",
+    "@types/jest": "^30.0.0",
     "@types/node": "^25.0.10",
     "@types/react": "^18.3.27",
     "@types/react-dom": "^18.3.7",
     "autoprefixer": "^10.0.1",
     "eslint": "^8",
     "eslint-config-next": "14.1.4",
+    "jest": "^30.3.0",
+    "jest-environment-jsdom": "^30.3.0",
     "postcss": "^8",
     "tailwindcss": "^3.3.0",
     "typescript": "^5.9.3"
