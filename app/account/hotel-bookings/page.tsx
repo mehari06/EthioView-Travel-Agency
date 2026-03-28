@@ -4,7 +4,7 @@ import { getHotelBookings } from "@/app/_lib/data-service";
 import Spinner from "@/app/_components/Spinner";
 import { format, isPast } from "date-fns";
 import { deleteHotelBookingAction } from "@/app/_lib/hotel-actions";
-import { resolveGuestId } from "@/app/_lib/guest";
+import { resolveGuestIds } from "@/app/_lib/guest";
 import {
   CalendarDaysIcon,
   CurrencyDollarIcon,
@@ -46,8 +46,8 @@ async function HotelBookingList({ session }: { session: any }) {
     );
   }
 
-  const guestId = await resolveGuestId(session);
-  if (!guestId) {
+  const guestIds = await resolveGuestIds(session);
+  if (!guestIds.length) {
     return (
       <p className="text-lg text-slate-600">
         Your account is signed in, but hotel bookings are temporarily unavailable.
@@ -57,7 +57,7 @@ async function HotelBookingList({ session }: { session: any }) {
 
   let bookings: any[] = [];
   try {
-    bookings = await getHotelBookings(guestId);
+    bookings = await getHotelBookings(guestIds);
   } catch {
     bookings = [];
   }

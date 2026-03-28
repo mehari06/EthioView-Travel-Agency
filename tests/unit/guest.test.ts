@@ -1,12 +1,12 @@
 import { resolveGuestId } from "@/app/_lib/guest";
-import { createGuest, getGuest } from "@/app/_lib/data-service";
+import { createGuest, getGuestIdsByEmail } from "@/app/_lib/data-service";
 
 jest.mock("@/app/_lib/data-service", () => ({
-  getGuest: jest.fn(),
+  getGuestIdsByEmail: jest.fn(),
   createGuest: jest.fn(),
 }));
 
-const mockGetGuest = getGuest as jest.MockedFunction<typeof getGuest>;
+const mockGetGuestIdsByEmail = getGuestIdsByEmail as jest.MockedFunction<typeof getGuestIdsByEmail>;
 const mockCreateGuest = createGuest as jest.MockedFunction<typeof createGuest>;
 
 describe("resolveGuestId", () => {
@@ -24,28 +24,23 @@ describe("resolveGuestId", () => {
     } as any;
 
     await expect(resolveGuestId(session)).resolves.toBe(17);
-    expect(mockGetGuest).not.toHaveBeenCalled();
     expect(mockCreateGuest).not.toHaveBeenCalled();
   });
 
-  it("resolves guestId from existing guest record", async () => {
-    mockGetGuest.mockResolvedValueOnce({
-      id: 8,
-      email: "guest@example.com",
-      fullName: "Guest User",
-    } as any);
+  it("resolves guestId from existing guest IDs", async () => {
+    mockGetGuestIdsByEmail.mockResolvedValueOnce([8, 4]);
 
     const session = {
       user: { guestId: 0, email: "guest@example.com", name: "Guest User" },
     } as any;
 
     await expect(resolveGuestId(session)).resolves.toBe(8);
-    expect(mockGetGuest).toHaveBeenCalledWith("guest@example.com");
+    expect(mockGetGuestIdsByEmail).toHaveBeenCalledWith("guest@example.com");
     expect(mockCreateGuest).not.toHaveBeenCalled();
   });
 
   it("creates guest when no guest record exists", async () => {
-    mockGetGuest.mockResolvedValueOnce(null as any);
+    mockGetGuestIdsByEmail.mockResolvedValueOnce([]);
     mockCreateGuest.mockResolvedValueOnce({
       id: 11,
       email: "new@example.com",
@@ -64,7 +59,7 @@ describe("resolveGuestId", () => {
   });
 
   it("returns null when DB calls fail", async () => {
-    mockGetGuest.mockRejectedValueOnce(new Error("db unavailable"));
+    mockGetGuestIdsByEmail.mockRejectedValueOnce(new Error("db unavailable"));
 
     const session = {
       user: { guestId: 0, email: "guest@example.com", name: "Guest User" },

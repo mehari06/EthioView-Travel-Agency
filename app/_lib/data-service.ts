@@ -54,9 +54,30 @@ export async function getGuest(email: string): Promise<Guest | null> {
     .from("guests")
     .select("*")
     .eq("email", email)
-    .single();
+    .order("id", { ascending: false })
+    .limit(1);
 
-  return data as Guest | null;
+  if (error) {
+    console.error(error);
+    return null;
+  }
+
+  return data?.[0] as Guest | null;
+}
+
+export async function getGuestIdsByEmail(email: string): Promise<number[]> {
+  const { data, error } = await supabase
+    .from("guests")
+    .select("id")
+    .eq("email", email)
+    .order("id", { ascending: false });
+
+  if (error) {
+    console.error(error);
+    return [];
+  }
+
+  return (data || []).map((row: any) => row.id).filter((id: any) => typeof id === "number");
 }
 
 export async function getBooking(id: number | string): Promise<Booking> {
@@ -74,14 +95,19 @@ export async function getBooking(id: number | string): Promise<Booking> {
   return data as Booking;
 }
 
-export async function getBookings(guestId: number): Promise<Booking[]> {
-  const { data, error } = await supabase
+export async function getBookings(guestId: number | number[]): Promise<Booking[]> {
+  let query = supabase
     .from("bookings")
     .select(
       "id, created_at, start_date, end_date, num_nights, num_guests, total_price, guest_id, cabin_id, cabins(name, image)"
     )
-    .eq("guest_id", guestId)
     .order("start_date");
+
+  query = Array.isArray(guestId)
+    ? query.in("guest_id", guestId)
+    : query.eq("guest_id", guestId);
+
+  const { data, error } = await query;
 
   if (error) {
     console.error(error);
@@ -96,14 +122,19 @@ export async function getBookings(guestId: number): Promise<Booking[]> {
   return transformedData as Booking[];
 }
 
-export async function getTourBookings(guestId: number): Promise<TourBooking[]> {
-  const { data, error } = await supabase
+export async function getTourBookings(guestId: number | number[]): Promise<TourBooking[]> {
+  let query = supabase
     .from("tour_bookings")
     .select(
       "id, created_at, guest_id, num_guests, total_price, status, is_paid, order_date, tour_id, tours(name, image, duration_days)"
     )
-    .eq("guest_id", guestId)
     .order("order_date", { ascending: false });
+
+  query = Array.isArray(guestId)
+    ? query.in("guest_id", guestId)
+    : query.eq("guest_id", guestId);
+
+  const { data, error } = await query;
 
   if (error) {
     console.error(error);
@@ -202,10 +233,19 @@ export async function getTours(): Promise<Tour[]> {
 // CREATE
 
 export async function createGuest(newGuest: Partial<Guest>): Promise<Guest> {
+  if (newGuest.email) {
+    const existingGuest = await getGuest(newGuest.email);
+    if (existingGuest) return existingGuest;
+  }
+
   const { data, error } = await supabase.from("guests").insert([newGuest]).select().single();
 
   if (error) {
     console.error(error);
+    if (newGuest.email) {
+      const existingGuest = await getGuest(newGuest.email);
+      if (existingGuest) return existingGuest;
+    }
     throw new Error("Guest could not be created");
   }
 
@@ -259,12 +299,17 @@ export async function getHotelPackages(hotelId: number) {
   return data;
 }
 
-export async function getHotelBookings(guestId: number) {
-  const { data, error } = await supabase
+export async function getHotelBookings(guestId: number | number[]) {
+  let query = supabase
     .from("hotel_bookings")
     .select("*, hotel_packages(*, hotels(*))")
-    .eq("guest_id", guestId)
     .order("created_at", { ascending: false });
+
+  query = Array.isArray(guestId)
+    ? query.in("guest_id", guestId)
+    : query.eq("guest_id", guestId);
+
+  const { data, error } = await query;
 
   if (error) {
     console.error(error);

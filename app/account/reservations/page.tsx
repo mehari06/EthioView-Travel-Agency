@@ -1,7 +1,7 @@
 import ReservationList from "../../_components/ReservationList";
 import { auth } from "../../_lib/auth";
 import { getBookings } from "../../_lib/data-service";
-import { resolveGuestId } from "../../_lib/guest";
+import { resolveGuestIds } from "../../_lib/guest";
 
 export const metadata = {
   title: "Reservations",
@@ -23,8 +23,8 @@ export default async function Page() {
     );
   }
 
-  const guestId = await resolveGuestId(session);
-  if (!guestId) {
+  const guestIds = await resolveGuestIds(session);
+  if (!guestIds.length) {
     return (
       <p className="text-lg">
         Your account is signed in, but reservations are temporarily unavailable.
@@ -34,7 +34,7 @@ export default async function Page() {
 
   let bookings = [];
   try {
-    bookings = await getBookings(guestId);
+    bookings = await getBookings(guestIds);
   } catch {
     bookings = [];
   }

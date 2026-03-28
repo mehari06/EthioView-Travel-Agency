@@ -1,27 +1,34 @@
 import { Session } from "next-auth";
-import { createGuest, getGuest } from "./data-service";
+import { createGuest, getGuestIdsByEmail } from "./data-service";
 
 export async function resolveGuestId(session: Session | null): Promise<number | null> {
-  if (!session?.user) return null;
+  const guestIds = await resolveGuestIds(session);
+  return guestIds[0] ?? null;
+}
 
-  if (typeof session.user.guestId === "number" && session.user.guestId > 0) {
-    return session.user.guestId;
+export async function resolveGuestIds(session: Session | null): Promise<number[]> {
+  if (!session?.user) return [];
+
+  const sessionGuestId =
+    typeof session.user.guestId === "number" && session.user.guestId > 0
+      ? session.user.guestId
+      : null;
+
+  if (!session.user.email) {
+    return sessionGuestId ? [sessionGuestId] : [];
   }
 
-  if (!session.user.email) return null;
-
   try {
-    let guest = await getGuest(session.user.email);
+    const guestIds = await getGuestIdsByEmail(session.user.email);
+    if (guestIds.length) return guestIds;
 
-    if (!guest) {
-      guest = await createGuest({
-        email: session.user.email,
-        fullName: session.user.name || "",
-      });
-    }
+    const guest = await createGuest({
+      email: session.user.email,
+      fullName: session.user.name || "",
+    });
 
-    return guest?.id ?? null;
+    return guest?.id ? [guest.id] : [];
   } catch {
-    return null;
+    return sessionGuestId ? [sessionGuestId] : [];
   }
 }
